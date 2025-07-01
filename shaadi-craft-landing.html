@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShaadiCraft - Create Beautiful Wedding Biodata</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .hero {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-heart, .floating-flower {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .floating-heart {
+            color: #ff6b6b;
+            font-size: 2rem;
+        }
+
+        .floating-flower {
+            color: #feca57;
+            font-size: 1.5rem;
+        }
+
+        .floating-heart:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-heart:nth-child(2) { top: 70%; left: 80%; animation-delay: 2s; }
+        .floating-flower:nth-child(3) { top: 30%; left: 90%; animation-delay: 1s; }
+        .floating-flower:nth-child(4) { top: 80%; left: 20%; animation-delay: 3s; }
+        .floating-heart:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Glassmorphism Card */
+        .hero-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4rem 3rem;
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Biodata Options */
+        .biodata-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .biodata-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .biodata-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .biodata-card:hover::before {
+            left: 100%;
+        }
+
+        .biodata-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .modern-icon {
+            background: linear-gradient(45deg, #54a0ff, #5f27cd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .traditional-icon {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Button */
+        .cta-section {
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+            color: white;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: bold;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #feca57;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .biodata-options {
+                grid-template-columns: 1fr;
+            }
+
+            .biodata-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .features-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Ad 1: Top of the page -->
+    <div id="ad-container-1" style="display: flex; justify-content: center; margin: 20px 0;">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'f6e5fdd76b39946e6af9ecb89dda9d90',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//unhealthyirreparable.com/f6e5fdd76b39946e6af9ecb89dda9d90/invoke.js"></script>
+    </div>
+
+    <section class="hero">
+        <div class="floating-elements">
+            <i class="fas fa-heart floating-heart"></i>
+            <i class="fas fa-heart floating-heart"></i>
+            <i class="fas fa-spa floating-flower"></i>
+            <i class="fas fa-spa floating-flower"></i>
+            <i class="fas fa-heart floating-heart"></i>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="logo">ShaadiCraft</h1>
+            <p class="tagline">✨ Create Beautiful Wedding Biodata ✨</p>
+            <p class="subtitle">Design stunning marriage biodata that tells your unique story. Choose between modern elegance or traditional charm to make the perfect first impression.</p>
+
+            <div class="biodata-options">
+                <div class="biodata-card" onclick="navigateToApp('modern')">
+                    <i class="fas fa-laptop-code card-icon modern-icon"></i>
+                    <h3 class="card-title">Modern Biodata</h3>
+                    <p class="card-description">Sleek, contemporary designs with clean layouts, modern typography, and professional styling perfect for today's couples.</p>
+                </div>
+
+                <div class="biodata-card" onclick="navigateToApp('traditional')">
+                    <i class="fas fa-om card-icon traditional-icon"></i>
+                    <h3 class="card-title">Traditional Biodata</h3>
+                    <p class="card-description">Classic, elegant designs with cultural motifs, traditional patterns, and timeless layouts honoring heritage and customs.</p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="https://sadi-craft.vercel.app/" class="cta-button">
+                    <i class="fas fa-magic"></i> Start Creating Your Biodata
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad 2: After hero, before features -->
+    <div id="ad-container-2" style="display: flex; justify-content: center; margin: 30px 0;">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '9d0ba8b9534eb2c5d6424f17b95c9c0e',
+                'format' : 'iframe',
+                'height' : 300,
+                'width' : 160,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//unhealthyirreparable.com/9d0ba8b9534eb2c5d6424f17b95c9c0e/invoke.js"></script>
+    </div>
+
+    <section class="features">
+        <div class="features-container">
+            <h2 class="features-title fade-in">Why Choose ShaadiCraft?</h2>
+            <!-- Ad 3: Inside features section -->
+            <div id="ad-container-3" style="display: flex; justify-content: center; margin: 20px 0;">
+                <script type='text/javascript' src='//unhealthyirreparable.com/d5/1f/ae/d51fae18f343c883880c3ae7f62b9cdb.js'></script>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item fade-in">
+                    <i class="fas fa-palette feature-icon"></i>
+                    <h3 class="feature-title">Beautiful Designs</h3>
+                    <p>Professionally crafted templates that make your biodata stand out with elegance and style.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3 class="feature-title">Easy to Use</h3>
+                    <p>Simple, intuitive interface that lets you create stunning biodata in minutes, not hours.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <i class="fas fa-download feature-icon"></i>
+                    <h3 class="feature-title">Instant Download</h3>
+                    <p>Get your beautifully formatted biodata instantly as a high-quality PDF ready to share.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <i class="fas fa-heart feature-icon"></i>
+                    <h3 class="feature-title">Made with Love</h3>
+                    <p>Every template is carefully designed to help you find your perfect match with dignity and grace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad 4: Before closing body -->
+    <div id="ad-container-4" style="display: flex; justify-content: center; margin: 30px 0;">
+        <script type='text/javascript' src='//unhealthyirreparable.com/12/35/aa/1235aa99934d768925bb4f2f03375fe4.js'></script>
+    </div>
+    <div id="ad-container-5" style="display: flex; justify-content: center; margin: 30px 0;">
+        <script async="async" data-cfasync="false" src="//unhealthyirreparable.com/983b115f97ab2ec6a4e3bc82116a9a91/invoke.js"></script>
+        <div id="container-983b115f97ab2ec6a4e3bc82116a9a91"></div>
+    </div>
+
+    <script>
+        // Navigate to app with specific type
+        function navigateToApp(type) {
+            // Add a subtle animation before navigation
+            const card = event.currentTarget;
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                window.open('https://sadi-craft.vercel.app/', '_blank');
+            }, 200);
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add click animation to CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+
+        // Add ripple effect to biodata cards
+        document.querySelectorAll('.biodata-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: 20px;
+                    height: 20px;
+                    margin-left: -10px;
+                    margin-top: -10px;
+                `;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
